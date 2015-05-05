@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+
+        var ws;
+
+        function conectar(){
+
+            var topico = document.getElementById("topico").value;
+
+            //ws = new WebSocket("ws://192.168.0.13:8084/echo/"+topico);
+            ws = new WebSocket("ws://localhost:8080/eco/geocops");
+
+            ws.onopen = function(){
+
+                console.log('conexao aberta');
+
+            }
+
+            ws.onmessage = function(evt){
+
+                console.log('a mensagem recebida foi '+evt.data);
+                console.log(evt.toString());
+                alert(evt.data)
+            }
+
+        }
+
+
+        function enviar(){
+
+            var mensagem = document.getElementById("mensagem").value;
+
+            ws.send(mensagem);
+        }
+
+
+
+    </script>
+</head>
+<body>
+<div>Testando websockets</div>
+Topico: <input type="text" id="topico"/><br/>
+<button onclick="conectar()">conectar</button><br/>
+
+Mensagem: <input type="text" id="mensagem"/><br/>
+<button id="enviar" onclick="enviar()">Enviar</button>
+</body>
+</html>
